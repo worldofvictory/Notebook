@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-interface Note {
+/*class???*/ interface Note { //se classe manca private , public
   id: number
   text: string
   date: Date
@@ -12,14 +12,17 @@ const showModal = ref<boolean>(false)
 const newNote = ref<string>("");
 const notes = ref<Note[]>([]);
 const errorMessage = ref<string>("");
-function backgroundColor() {
-  return "hsl(" + Math.random() * 360 + ", 100%, 75%)";
+
+function backgroundColor(): string {
+  const colors = ['#EEDEF6', '#FDCEDF', '#CCE5E3', '#FEE1B6', '#ffffff'];
+  const randomIndex = Math.floor(Math.random() * colors.length);
+  return colors[randomIndex];
 }
 
 
-const addNote = () => { 
-  if(newNote.value.length <10) {
-    return errorMessage.value="Note needs to be 10 characters or more"
+const addNote = () => {
+  if (newNote.value.length < 10) {
+    return errorMessage.value = "Note needs to be 10 characters or more"
   }
   notes.value.push(
     {
@@ -52,16 +55,9 @@ const addNote = () => {
 
       <div class="card-container">
 
-        <div v-for="note in notes" 
-        class="card" 
-        :style="{ backgroundColor: note.color }"
-        :key ="note.id">
+        <div v-for="note in notes" class="card" :style="{ backgroundColor: note.color }" :key="note.id">
           <p class="main-text">{{ note.text }}</p>
           <p class="date">{{ note.date.toLocaleDateString() }}</p>
-        </div>
-        <div class="card">
-          <p class="main-text">lorem</p>
-          <p class="date">19/04/2025</p>
         </div>
       </div>
     </div>
@@ -119,6 +115,11 @@ h1 {
   justify-content: space-between;
   margin-right: 60px;
   margin-bottom: 40px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  overflow: auto; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .date {
@@ -168,6 +169,7 @@ h1 {
   z-index: 100000;
   cursor: pointer;
 }
+
 .errorTxt {
   background-color: brown;
   margin-top: 7px;
