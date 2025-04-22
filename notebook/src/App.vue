@@ -1,17 +1,24 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+interface Note {
+  id: number
+  text: string
+  date: Date
+  color: string
+}
+
 const showModal = ref<boolean>(false)
 const newNote = ref<string>("");
-const notes = ref<T>([]);
-const errorMessage = ref("");
+const notes = ref<Note[]>([]);
+const errorMessage = ref<string>("");
 function backgroundColor() {
   return "hsl(" + Math.random() * 360 + ", 100%, 75%)";
 }
 
 
-const addNote = () => { //aggiungiamo-card
-  if(newNote.value.trim.length <10) {
+const addNote = () => { 
+  if(newNote.value.length <10) {
     return errorMessage.value="Note needs to be 10 characters or more"
   }
   notes.value.push(
@@ -31,7 +38,7 @@ const addNote = () => { //aggiungiamo-card
   <main>
     <div v-if="showModal" class="overlay">
       <div class="modal">
-        <textarea v-model.trim="newNote" name="note" id="note" cols="30" rows="10"></textarea>
+        <textarea v-model="newNote" name="note" id="note" cols="30" rows="10"></textarea>
         <p class="errorTxt" v-if="errorMessage"> {{ errorMessage }}</p>
         <button class="overlayBtn" @click="addNote">Add Note</button>
         <button class="closeBtn overlayBtn" @click="showModal = false">X</button>
