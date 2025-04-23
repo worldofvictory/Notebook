@@ -15,7 +15,7 @@ const errorMessage = ref<string>("");
 
 function backgroundColor(): string {
   const colors = ['#EEDEF6', '#FDCEDF', '#CCE5E3', '#FEE1B6', '#ffffff'];
-  const randomIndex = Math.floor(Math.random() * colors.length);
+  const randomIndex = Math.floor(Math.random()* colors.length );
   return colors[randomIndex];
 }
 
@@ -57,8 +57,9 @@ const addNote = () => {
       <div class="card-container">
 
         <div v-for="note in notes" class="card" :style="{ backgroundColor: note.color }" :key="note.id">
-          <p class="main-text">{{ note.text }}</p>
           <p class="date">{{ note.date.toLocaleDateString() }}</p>
+          <p class="main-text">{{ note.text }}</p>
+          
         </div>
       </div>
     </div>
@@ -113,19 +114,22 @@ h1 {
   border-radius: 15px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-right: 60px;
   margin-bottom: 40px;
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: normal;
   overflow: auto; 
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0.15, 0.45);
 }
-
+.main-text {
+  margin: 0;
+}
 .date {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: bold;
+  margin-bottom: 20px;
 }
 
 .overlay {
