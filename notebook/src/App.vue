@@ -19,8 +19,7 @@ function backgroundColor(): string {
   return colors[randomIndex];
 }
 
-
-const addNote = () => {
+const addNote = () => {//
   if (newNote.value.length < 10) {
     return errorMessage.value = "Note needs to be 10 characters or more"
   }
